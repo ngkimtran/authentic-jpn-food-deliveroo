@@ -1,25 +1,10 @@
 "use client";
 
 import { gql, useQuery } from "@apollo/client";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Loader from "@/app/_components/Loader";
-
-type DishSchema = {
-  id: string;
-  attributes: {
-    name: string;
-    description: string;
-    price: number;
-    image: {
-      data: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
-  };
-};
+import { DishSchema } from "../_schemas/schemas";
 
 const GET_RESTAURANT_DISHES = gql`
   query getRestaurant($id: ID!) {
@@ -67,14 +52,14 @@ const DishCard = ({ data }: { data: DishSchema }) => {
           alt=""
         />
 
-        <div className="p-8">
+        <div className="p-8 flex flex-col" style={{ height: "29rem" }}>
           <div className="group inline-block mb-4">
             <h3 className="font-heading text-xl text-gray-900 hover:text-gray-700 group-hover:underline font-black">
               {data.attributes.name}
             </h3>
-            <h2>{data.attributes.price}</h2>
+            <h2>{data.attributes.price.toFixed(2)} €</h2>
           </div>
-          <p className="text-sm text-gray-500 font-bold">
+          <p className="text-sm text-gray-500 font-bold h-full">
             {data.attributes.description}
           </p>
           <div className="flex flex-wrap md:justify-center -m-2">
@@ -93,11 +78,11 @@ const DishCard = ({ data }: { data: DishSchema }) => {
   );
 };
 
-const Restaurant = () => {
-  const pathName = usePathname();
+const SingleRestaurant = () => {
+  const searchParams = useSearchParams();
 
   const { loading, error, data } = useQuery(GET_RESTAURANT_DISHES, {
-    variables: { id: pathName.split("/")[2] },
+    variables: { id: searchParams.get("id") },
   });
 
   if (error) return <div>Error loading dishes</div>;
@@ -130,4 +115,4 @@ const Restaurant = () => {
   } else return <h1>No dishes found</h1>;
 };
 
-export default Restaurant;
+export default SingleRestaurant;

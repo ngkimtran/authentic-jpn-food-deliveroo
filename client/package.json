@@ -12,11 +12,14 @@
     "@apollo/client": "^3.8.4",
     "@apollo/experimental-nextjs-app-support": "^0.4.3",
     "graphql": "^16.8.1",
+    "js-cookie": "^3.0.5",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.4",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",

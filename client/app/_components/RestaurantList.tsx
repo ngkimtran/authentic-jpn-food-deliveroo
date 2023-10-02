@@ -1,22 +1,10 @@
+"use client";
+
 import { gql, useQuery } from "@apollo/client";
 import Link from "next/link";
 import Image from "next/image";
 import Loader from "./Loader";
-
-type RestaurantSchema = {
-  id: string;
-  attributes: {
-    name: string;
-    description: string;
-    image: {
-      data: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
-  };
-};
+import { RestaurantSchema } from "../_schemas/schemas";
 
 const GET_RESTAURANTS = gql`
   query getRestaurants {
@@ -63,7 +51,7 @@ const RestaurantCard = ({ data }: { data: RestaurantSchema }) => (
             <Link
               className="block w-full px-12 py-3.5 text-lg text-center text-white font-bold bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:ring-gray-600 rounded-full"
               href={{
-                pathname: `/restaurant/${data.id}`,
+                pathname: `/restaurant`,
                 query: { id: data.id },
               }}
             >

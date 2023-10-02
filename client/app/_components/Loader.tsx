@@ -1,3 +1,5 @@
+"use client";
+
 const Loader = () => (
   <div className="absolute inset-0 flex items-center justify-center z-50  bg-opacity-40 bg-green-500">
     <div role="status">
