@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { gql, useMutation } from "@apollo/client";
 import Cookie from "js-cookie";
 import { userState } from "@/app/_states/states";
@@ -22,7 +22,7 @@ const LOGIN = gql`
 `;
 
 const Login = () => {
-  const [, setUser] = useRecoilState(userState);
+  const setUser = useSetRecoilState(userState);
   const router = useRouter();
 
   const [formData, setFormData] = useState({ email: "", password: "" });

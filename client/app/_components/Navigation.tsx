@@ -39,7 +39,7 @@ const Navigation = () => {
             <div className="hxl:block">
               {user ? (
                 <div className="flex items-center justify-end">
-                  <span className="inline-block py-2 px-4 mr-2 leading-5 text-gray-50  hover:text-gray-100 bg-transparent font-medium rounded-md">
+                  <span className="inline-block py-2 px-4 mr-2 leading-5 text-green-500 hover:text-green-600 bg-transparent font-medium rounded-md">
                     {user.username}
                   </span>
                   <button
