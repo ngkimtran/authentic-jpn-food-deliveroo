@@ -9,19 +9,17 @@ type RestaurantSchema = {
     name: string;
     description: string;
     image: {
-      data: [
-        {
-          attributes: {
-            url: string;
-          };
-        }
-      ];
+      data: {
+        attributes: {
+          url: string;
+        };
+      };
     };
   };
 };
 
 const GET_RESTAURANTS = gql`
-  {
+  query getRestaurants {
     restaurants {
       data {
         id
@@ -45,11 +43,11 @@ const RestaurantCard = ({ data }: { data: RestaurantSchema }) => (
   <div className="w-full md:w-1/2 lg:w-1/3 p-4">
     <div className="h-full bg-gray-100 rounded-2xl">
       <Image
-        className="w-full h-80 rounded-2xl object-cover"
+        className="w-full h-80 rounded-2xl"
         height={300}
         width={300}
         src={`${process.env.STRAPI_URL || "http://localhost:1337"}${
-          data.attributes.image.data[0].attributes.url
+          data.attributes.image.data.attributes.url
         }`}
         alt=""
       />
@@ -64,7 +62,10 @@ const RestaurantCard = ({ data }: { data: RestaurantSchema }) => (
           <div className="w-full md:w-auto p-2 my-6">
             <Link
               className="block w-full px-12 py-3.5 text-lg text-center text-white font-bold bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:ring-gray-600 rounded-full"
-              href={`/restaurant/${data.id}`}
+              href={{
+                pathname: `/restaurant/${data.id}`,
+                query: { id: data.id },
+              }}
             >
               View
             </Link>
@@ -81,7 +82,7 @@ const RestaurantList = ({ searchQuery }: { searchQuery: string }) => {
   if (error) return <div>Error loading restaurants</div>;
   if (loading) return <Loader />;
 
-  if (data.restaurants.data && data.restaurants.data.length) {
+  if (data.restaurants.data && data.restaurants.data.length > 0) {
     const searchResult = data.restaurants.data.filter(
       (restaurant: RestaurantSchema) =>
         restaurant.attributes.name
@@ -106,9 +107,7 @@ const RestaurantList = ({ searchQuery }: { searchQuery: string }) => {
         )}
       </>
     );
-  }
-
-  return <h5>Add Restaurants</h5>;
+  } else return <h5>Add Restaurants</h5>;
 };
 
 export default RestaurantList;

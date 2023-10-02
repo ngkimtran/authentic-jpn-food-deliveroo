@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "restaurants",
+  "collectionName": "dishes",
   "info": {
-    "singularName": "restaurant",
-    "pluralName": "restaurants",
-    "displayName": "restaurant",
+    "singularName": "dish",
+    "pluralName": "dishes",
+    "displayName": "dish",
     "description": ""
   },
   "options": {
@@ -17,7 +17,7 @@
       "required": true
     },
     "description": {
-      "type": "richtext"
+      "type": "text"
     },
     "image": {
       "type": "media",
@@ -30,11 +30,15 @@
         "audios"
       ]
     },
-    "dishes": {
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "restaurant": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::dish.dish",
-      "mappedBy": "restaurant"
+      "relation": "manyToOne",
+      "target": "api::restaurant.restaurant",
+      "inversedBy": "dishes"
     }
   }
 }
