@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useRecoilState } from "recoil";
 import Cookie from "js-cookie";
-import { userState } from "../_states/states";
 import { useRouter } from "next/navigation";
+import { useRecoilState } from "recoil";
+import { userState } from "../_states/states";
+import { UserSchema } from "../_schemas/schemas";
 
 const Navigation = () => {
   const router = useRouter();
-  const [user, setUser] = useRecoilState(userState);
+  const [user, setUser] = useRecoilState<UserSchema | null>(userState);
 
   const handleLogout = () => {
     setUser(null);
@@ -21,7 +22,7 @@ const Navigation = () => {
       <div className="flex justify-between items-center w-full">
         <div className="xl:w-1/3">
           <Link
-            className="block text-lg max-w-max ext-coolGray-500 hover:text-coolGray-900 font-medium"
+            className="uppercase block text-lg max-w-max ext-coolGray-500 hover:text-coolGray-900 font-medium"
             href="/"
           >
             Authentic Japanese Food Deliveroo

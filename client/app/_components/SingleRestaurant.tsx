@@ -1,10 +1,13 @@
 "use client";
 
+import { useSetRecoilState } from "recoil";
 import { gql, useQuery } from "@apollo/client";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Loader from "@/app/_components/Loader";
 import { DishSchema } from "../_schemas/schemas";
+import { showCartState } from "../_states/states";
+import useAddItemToCart from "../_hooks/useAddItemToCart";
 
 const GET_RESTAURANT_DISHES = gql`
   query getRestaurant($id: ID!) {
@@ -37,7 +40,14 @@ const GET_RESTAURANT_DISHES = gql`
 `;
 
 const DishCard = ({ data }: { data: DishSchema }) => {
-  const handleAddItem = () => {};
+  const setShowCart = useSetRecoilState<boolean>(showCartState);
+
+  const { dispatch: addItem } = useAddItemToCart();
+
+  const handleAddItem = () => {
+    addItem(data);
+    setShowCart(true);
+  };
 
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 p-4">

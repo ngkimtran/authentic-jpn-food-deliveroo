@@ -1,6 +1,6 @@
 "use client";
 
-type FormData = {
+export type FormData = {
   email: string;
   password: string;
 };

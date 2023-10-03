@@ -6,8 +6,9 @@ import { useSetRecoilState } from "recoil";
 import { gql, useMutation } from "@apollo/client";
 import Cookie from "js-cookie";
 import { userState } from "@/app/_states/states";
-import Form from "@/app/_components/Form";
+import Form, { FormData } from "@/app/_components/Form";
 import Loader from "@/app/_components/Loader";
+import { UserSchema } from "@/app/_schemas/schemas";
 
 const LOGIN = gql`
   mutation Login($identifier: String!, $password: String!) {
@@ -22,10 +23,13 @@ const LOGIN = gql`
 `;
 
 const Login = () => {
-  const setUser = useSetRecoilState(userState);
-  const router = useRouter();
+  const setUser = useSetRecoilState<UserSchema | null>(userState);
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+  });
 
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const router = useRouter();
   const [login, { loading, error }] = useMutation(LOGIN);
 
   const handleLogin = async () => {

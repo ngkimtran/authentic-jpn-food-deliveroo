@@ -34,3 +34,12 @@ export type UserSchema = {
   email: string;
   username: string;
 };
+
+export type CartItemSchema = DishSchema & {
+  quantity: number;
+};
+
+export type CartSchema = {
+  items: CartItemSchema[];
+  total: number;
+};

@@ -1,9 +1,11 @@
 "use client";
 
 import Cookie from "js-cookie";
-import { RecoilRoot, useRecoilState } from "recoil";
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
 import { gql, useQuery } from "@apollo/client";
-import { userState } from "../_states/states";
+import { cartState, userState } from "../_states/states";
+import { CartSchema, UserSchema } from "../_schemas/schemas";
+import { useEffect } from "react";
 
 const CURRENT_USER = gql`
   query currentUser {
@@ -16,18 +18,25 @@ const CURRENT_USER = gql`
 `;
 
 const RecoilProvider = ({ children }: React.PropsWithChildren) => {
-  const token = Cookie.get("token");
-  const [, setUser] = useRecoilState(userState);
+  const tokenCookie: string | undefined = Cookie.get("token");
+
+  const cart = useRecoilValue<CartSchema>(cartState);
+  const setUser = useSetRecoilState<UserSchema | null>(userState);
 
   useQuery(CURRENT_USER, {
-    skip: !token,
+    skip: !tokenCookie,
     context: {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${tokenCookie}`,
       },
     },
     onCompleted: (data) => setUser(data?.me),
   });
+
+  useEffect(() => {
+    Cookie.set("cart", JSON.stringify(cart));
+  }, [cart]);
+
   return <>{children}</>;
 };
 

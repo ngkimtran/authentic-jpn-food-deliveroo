@@ -1,8 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import ApolloWrapper from "@/app/_lib/apollo-wrapper";
 import RecoilWrapper from "../_lib/recoil-wrapper";
 import Navigation from "../_components/Navigation";
+
+const Cart = dynamic(() => import("@/app/_components/Cart"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "Authentic Japanese Food Deliveroo",
@@ -15,6 +18,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       <ApolloWrapper>
         <RecoilWrapper>
           <Navigation />
+          <Cart />
           <div className="mx-auto px-4">{children}</div>
         </RecoilWrapper>
       </ApolloWrapper>
