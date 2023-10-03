@@ -99,7 +99,7 @@ const Cart = () => {
   };
 
   return (
-    <section className="fixed right-20 top-[128px]">
+    <section className="fixed right-20 top-[162px]">
       <div className="relative max-h-28	">
         <div
           role="button"
