@@ -14,7 +14,8 @@
     "@strapi/plugin-i18n": "4.14.0",
     "@strapi/plugin-users-permissions": "4.14.0",
     "@strapi/strapi": "4.14.0",
-    "pg": "8.8.0",
+    "pg": "^8.8.0",
+    "pg-connection-string": "^2.6.2",
     "stripe": "^13.8.0"
   },
   "author": {
