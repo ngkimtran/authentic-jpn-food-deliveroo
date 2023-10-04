@@ -7,44 +7,11 @@ import { cartState, userState, showCartState } from "../_states/states";
 import useAddItemToCart from "../_hooks/useAddItemToCart";
 import useRemoveItemFromCart from "../_hooks/useRemoveItemFromCart";
 
-const CartItem = ({ data }: { data: CartItemSchema }) => {
+export const CartItem = ({ data }: { data: CartItemSchema }) => {
   const { dispatch: addItem } = useAddItemToCart();
   const { dispatch: removeItem } = useRemoveItemFromCart();
 
   return (
-    // <div className="p-6 flex flex-col flex-wrap justify-between border-b border-blueGray-800">
-    //   <div className="w-full">
-    //     <div className="flex flex-col justify-between h-full w-full">
-    //       <h6 className="text-lef font-bold text-white mb-1">
-    //         {data.attributes.name}
-    //       </h6>
-    //       <span className="block pb-4 mb-auto font-medium text-gray-400">
-    //         {data.quantity} x {data.attributes.price} €
-    //       </span>
-    //     </div>
-    //   </div>
-    //   <div className="w-1/4">
-    //     <div className="flex flex-col items-end h-full">
-    //       <div className="flex justify-between">
-    //         <button
-    //           className="mr-2 inline-block mb-auto font-medium text-sm text-gray-400 hover:text-gray-200"
-    //           onClick={() => removeItem(data)}
-    //         >
-    //           -
-    //         </button>
-    //         <button
-    //           className="inline-block mb-auto font-medium text-sm text-gray-400 hover:text-gray-200"
-    //           onClick={() => addItem(data)}
-    //         >
-    //           +
-    //         </button>
-    //       </div>
-    //       <span className="block mt-2 text-sm font-bold text-white">
-    //         {data.attributes.price * data.quantity} €
-    //       </span>
-    //     </div>
-    //   </div>
-    // </div>
     <div className="px-2 py-6 flex flex-col flex-wrap justify-between border-b border-blueGray-800">
       <div className="w-full">
         <div className="flex flex-row gap-5 justify-between h-full">
@@ -132,7 +99,11 @@ const Cart = () => {
                   </h6>
                 </div>
 
-                <div onClick={(e) => e.stopPropagation()}>
+                <div
+                  onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+                    e.stopPropagation()
+                  }
+                >
                   {cart.items
                     ? cart.items.map(
                         (item) =>
@@ -142,7 +113,12 @@ const Cart = () => {
                       )
                     : null}
                 </div>
-                <div className="p-6" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="p-6"
+                  onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+                    e.stopPropagation()
+                  }
+                >
                   <div className="flex mb-6 content-center justify-between w-full">
                     <span className="text-sm font-bold text-white">
                       Order total:
